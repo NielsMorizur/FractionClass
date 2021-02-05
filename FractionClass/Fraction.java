@@ -1,6 +1,7 @@
 class Fraction {
    private int num, den;
    
+   //constructors
    public Fraction() {
        this.num = 1;
        this.den = 1;
@@ -28,5 +29,60 @@ class Fraction {
    public Fraction(Fraction f) { 
        this.num = f.num;
        this.den = f.den;
+   }
+   
+   //accessors
+   public int getNum() {
+       return this.num;
+   }
+   
+   public int getDen() {
+       return this.den;
+   }
+   
+   public String toString() {
+       return this.num + "/" + this.den;
+   }
+   
+   public double toDouble() {
+       double num = this.num;
+       double den = this.den;
+       return num / den;
+   }
+   
+   //mutators
+   public void reduce() {
+       int gcf = GCF(num,den);
+       num /= gcf;
+       den /= gcf;
+   }
+   
+   public void setNum(int num) {
+       this.num = num;
+   }
+   
+   public void setDen (int den) {
+       if (den != 0) this.den = den;
+       else System.out.println("Error, denominator cannot be 0");
+   }
+   
+   //Static methods
+   public static Fraction multiply(Fraction a, Fraction b) {
+       int newNum = a.num * b.num;
+       int newDen = a.den * b.den;
+       Fraction f = new Fraction(newNum, newDen);
+       f.reduce();
+       return f;
+   }
+   
+   //helpers
+   private int GCF(int num , int den) {
+     num = Math.abs(num);
+     den = Math.abs(den);
+       while (num != den) {
+         if (num >= den) num -= den;
+         if (den >= num) den -= num;
+     }
+     return num;
    }
 }
